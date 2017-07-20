@@ -33,15 +33,16 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
-	String webHookEndPoint(@RequestParam(value = "hubmode", required = false) String mode,
-                           @RequestParam(value = "hubchallenge ", required = false) String challenge ,
-                           @RequestParam(value = "hubverify_token ", required = false) String verify_token, HttpServletRequest servletRequest){
+	String webHookEndPoint(@RequestParam(value = "hub.mode", required = false) String mode,
+                           @RequestParam(value = "hub.challenge", required = false) String challenge ,
+                           @RequestParam(value = "hub.verify_token ", required = false) String verify_token, HttpServletRequest servletRequest){
 		//mapList.add(servletRequest.getParameterMap());
         Enumeration<String> enumName = servletRequest.getParameterNames();
         while(enumName.hasMoreElements()){
             String name  = enumName.nextElement();
             mapList.add("ParamerName: "+name+"-->"+servletRequest.getParameter(name));
         }
+        mapList.add(challenge);
 		/*String s = request.get("hub.challenge");
 		return s;*/
 		return challenge;
