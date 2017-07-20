@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class TestwebhookApplication {
 	@ResponseBody
 	String webHookEndPoint(@RequestParam(value = "hub_mode", required = false) String mode,
                            @RequestParam(value = "hub_challenge ", required = false) String challenge ,
-                           @RequestParam(value = "hub_verify_token ", required = false) String verify_token ){
-		mapList.add(challenge);
+                           @RequestParam(value = "hub_verify_token ", required = false) String verify_token, ServletRequest servletRequest){
+		mapList.add(servletRequest.getLocalAddr());
 		/*String s = request.get("hub.challenge");
 		return s;*/
 		return challenge;
