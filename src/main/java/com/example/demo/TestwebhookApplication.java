@@ -15,7 +15,7 @@ import java.util.Map;
 @Controller
 public class TestwebhookApplication {
 
-	private List<Map<String, String>> mapList = new ArrayList<>();
+	private List<Map<String, Object>> mapList = new ArrayList<>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -25,15 +25,15 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	@ResponseBody
-	List<Map<String, String>> homerequests() {
+	List<Map<String, Object>> homerequests() {
 		return mapList;
 	}
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
 	String webHookEndPoint(Map<String, Object> request){
-		/*mapList.add(request);
-		String s = request.get("hub.challenge");
+		mapList.add(request);
+		/*String s = request.get("hub.challenge");
 		return s;*/
 		return "hi";
 	}
