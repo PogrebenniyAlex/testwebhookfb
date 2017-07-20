@@ -32,10 +32,10 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
-	String webHookEndPoint(@RequestParam(value = "hub_mode", required = false) String mode,
-                           @RequestParam(value = "hub_challenge ", required = false) String challenge ,
-                           @RequestParam(value = "hub_verify_token ", required = false) String verify_token, ServletRequest servletRequest){
-		mapList.add(servletRequest.getLocalName());
+	String webHookEndPoint(@RequestParam(value = "hubmode", required = false) String mode,
+                           @RequestParam(value = "hubchallenge ", required = false) String challenge ,
+                           @RequestParam(value = "hubverify_token ", required = false) String verify_token, ServletRequest servletRequest){
+		mapList.add(servletRequest.getParameterMap().toString());
 		/*String s = request.get("hub.challenge");
 		return s;*/
 		return challenge;
