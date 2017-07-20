@@ -31,9 +31,9 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
-	String webHookEndPoint(@RequestParam(value = "hub.mode", required = false) String mode,
-                           @RequestParam(value = "hub.challenge ", required = false) String challenge ,
-                           @RequestParam(value = "hub.verify_token ", required = false) String verify_token ){
+	String webHookEndPoint(@RequestParam(value = "hub_mode", required = false) String mode,
+                           @RequestParam(value = "hub_challenge ", required = false) String challenge ,
+                           @RequestParam(value = "hub_verify_token ", required = false) String verify_token ){
 		mapList.add(challenge);
 		/*String s = request.get("hub.challenge");
 		return s;*/
