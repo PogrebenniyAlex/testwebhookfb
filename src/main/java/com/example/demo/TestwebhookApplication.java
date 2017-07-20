@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @Controller
 public class TestwebhookApplication {
 
-	private List<Map<String, Object>> mapList = new ArrayList<>();
+	private List<Object> mapList = new ArrayList<>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -25,13 +24,13 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	@ResponseBody
-	List<Map<String, Object>> homerequests() {
+	List<Object> homerequests() {
 		return mapList;
 	}
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
-	String webHookEndPoint(Map<String, Object> request){
+	String webHookEndPoint(Object request){
 		mapList.add(request);
 		/*String s = request.get("hub.challenge");
 		return s;*/
