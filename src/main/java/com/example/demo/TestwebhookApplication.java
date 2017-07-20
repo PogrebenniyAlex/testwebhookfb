@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 @Controller
 public class TestwebhookApplication {
 
-	private List<Object> mapList = new ArrayList<>();
+	private List<String> mapList = new ArrayList<>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -24,17 +25,19 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	@ResponseBody
-	List<Object> homerequests() {
+	List<String> homerequests() {
 		return mapList;
 	}
 
 	@RequestMapping(value = "/webhook", method = RequestMethod.GET)
 	@ResponseBody
-	String webHookEndPoint(Object request){
-		mapList.add(request);
+	String webHookEndPoint(@RequestParam(value = "hub.mode", required = false) String mode,
+                           @RequestParam(value = "hub.challenge ", required = false) String challenge ,
+                           @RequestParam(value = "hub.verify_token ", required = false) String verify_token ){
+		mapList.add(challenge);
 		/*String s = request.get("hub.challenge");
 		return s;*/
-		return "hi";
+		return challenge;
 	}
 
 	public static void main(String[] args) {
