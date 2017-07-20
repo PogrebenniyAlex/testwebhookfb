@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @Controller
 public class TestwebhookApplication {
 
-	private List<Map<String, String[]>> mapList = new ArrayList<>();
+	private List<String> mapList = new ArrayList<>();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -27,7 +27,7 @@ public class TestwebhookApplication {
 
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	@ResponseBody
-	List<Map<String, String[]>> homerequests() {
+	List<String> homerequests() {
 		return mapList;
 	}
 
@@ -35,8 +35,13 @@ public class TestwebhookApplication {
 	@ResponseBody
 	String webHookEndPoint(@RequestParam(value = "hubmode", required = false) String mode,
                            @RequestParam(value = "hubchallenge ", required = false) String challenge ,
-                           @RequestParam(value = "hubverify_token ", required = false) String verify_token, ServletRequest servletRequest){
-		mapList.add(servletRequest.getParameterMap());
+                           @RequestParam(value = "hubverify_token ", required = false) String verify_token, HttpServletRequest servletRequest){
+		//mapList.add(servletRequest.getParameterMap());
+        Enumeration<String> enumName = servletRequest.getParameterNames();
+        while(enumName.hasMoreElements()){
+            String name  = enumName.nextElement();
+            mapList.add("ParamerName: "+name+"-->"+servletRequest.getParameter(name));
+        }
 		/*String s = request.get("hub.challenge");
 		return s;*/
 		return challenge;
