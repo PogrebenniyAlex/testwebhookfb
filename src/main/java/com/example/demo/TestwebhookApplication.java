@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -48,7 +49,25 @@ public class TestwebhookApplication {
 		return challenge;
 	}
 
+    @RequestMapping(value = "/webhook", method = RequestMethod.POST)
+    void webHookEndPointPost(Map<String, Object> subscribeObject){
+
+        StringBuffer s = new StringBuffer("");
+        s.append("field : ").append(subscribeObject.get("field")).append(";\n");
+        s.append("value : {\n");
+
+        subscribeObject.forEach((s1, o) -> {
+            s.append(s1).append(" : ").append(o).append("; \n");
+        });
+
+        s.append("}");
+
+        mapList.add(s.toString());
+
+    }
+
 	public static void main(String[] args) {
 		SpringApplication.run(TestwebhookApplication.class, args);
 	}
+
 }
