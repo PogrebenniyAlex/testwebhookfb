@@ -2,12 +2,16 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -44,9 +48,9 @@ public class TestwebhookApplication {
 		return challenge;
 	}
 
-    @RequestMapping(value = "/webhook", method = RequestMethod.POST)
+    @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    String webHookEndPointPost(Map<String, Object> subscribeObject){
+    String webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -59,14 +63,16 @@ public class TestwebhookApplication {
 
         s.append(" }");*/
 
-        s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
+        /*s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
         s.append("value : {");
 
-        /*((Map<String, String>)subscribeObject.get("value")).forEach((s1, o) -> {
+        *//*((Map<String, String>)subscribeObject.get("value")).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });*/
+        });*//*
 
-        s.append("}");
+        s.append("}");*/
+
+        s.append(subscribeObject.getField());
 
         mapList.add(s.toString());
 
@@ -124,6 +130,38 @@ public class TestwebhookApplication {
     private static class Likes{
         private String field;
 
+
+        @Override
+        public String toString() {
+            return "Likes{" +
+                    "field='" + field + '\'' +
+                    '}';
+        }
+    }
+
+    private static class LikesObj{
+        private String field;
+
+        private Map<String, String> value;
+
+        public LikesObj() {
+        }
+
+        public String getField() {
+            return field;
+        }
+
+        public void setField(String field) {
+            this.field = field;
+        }
+
+        public Map<String, String> getValue() {
+            return value;
+        }
+
+        public void setValue(Map<String, String> value) {
+            this.value = value;
+        }
 
         @Override
         public String toString() {
