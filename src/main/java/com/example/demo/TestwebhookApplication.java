@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -72,7 +71,7 @@ public class TestwebhookApplication {
 
         s.append("}");*/
 
-        s.append(subscribeObject.getField());
+        s.append(subscribeObject.getObject());
 
         mapList.add(s.toString());
 
@@ -140,33 +139,25 @@ public class TestwebhookApplication {
     }
 
     private static class LikesObj{
-        private String field;
+        private String object;
 
-        private Map<String, String> value;
+        //private Map<String, String> value;
 
         public LikesObj() {
         }
 
-        public String getField() {
-            return field;
+        public String getObject() {
+            return object;
         }
 
-        public void setField(String field) {
-            this.field = field;
-        }
-
-        public Map<String, String> getValue() {
-            return value;
-        }
-
-        public void setValue(Map<String, String> value) {
-            this.value = value;
+        public void setObject(String object) {
+            this.object = object;
         }
 
         @Override
         public String toString() {
-            return "Likes{" +
-                    "field='" + field + '\'' +
+            return "LikesObj{" +
+                    "object='" + object + '\'' +
                     '}';
         }
     }
