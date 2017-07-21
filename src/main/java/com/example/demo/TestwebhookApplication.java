@@ -45,7 +45,7 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
-    void webHookEndPointPost(Map<String, Object> subscribeObject){
+    void webHookEndPointPost(Likes  likes){
 
         StringBuffer s = new StringBuffer("");
 
@@ -58,16 +58,16 @@ public class TestwebhookApplication {
 
         s.append(" }");*/
 
-        s.append("field : ").append((String)subscribeObject.get("field")).append(";");
+        /*s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
         s.append("value : {");
 
-        /*((Map<String, String>)subscribeObject.get("field")).forEach((s1, o) -> {
+        *//*((Map<String, String>)subscribeObject.get("field")).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });*/
+        });*//*
 
-        s.append("}");
+        s.append("}");*/
 
-        mapList.add(s.toString());
+        mapList.add(likes.toString());
 
     }
 
@@ -106,6 +106,25 @@ public class TestwebhookApplication {
         public String toString() {
             return "Verify{" +
                     "success='" + success + '\'' +
+                    '}';
+        }
+    }
+
+    private static class Likes{
+        private String field;
+
+        public String getField() {
+            return field;
+        }
+
+        public void setField(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return "Likes{" +
+                    "field='" + field + '\'' +
                     '}';
         }
     }
