@@ -58,12 +58,12 @@ public class TestwebhookApplication {
 
         s.append(" }");*/
 
-        s.append("field : ").append((String)subscribeObject.get("")).append(";");
+        s.append("field : ").append((String)subscribeObject.get("field")).append(";");
         s.append("value : {");
 
-        ((Map<String, String>)subscribeObject.get(1)).forEach((s1, o) -> {
+        /*((Map<String, String>)subscribeObject.get("field")).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });
+        });*/
 
         s.append("}");
 
