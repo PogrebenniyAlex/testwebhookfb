@@ -62,9 +62,9 @@ public class TestwebhookApplication {
         s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
         s.append("value : {");
 
-        ((Map<String, String>)subscribeObject.get("value")).forEach((s1, o) -> {
+        /*((Map<String, String>)subscribeObject.get("value")).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });
+        });*/
 
         s.append("}");
 
