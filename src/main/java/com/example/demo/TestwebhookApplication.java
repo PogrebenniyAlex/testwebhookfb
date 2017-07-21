@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootApplication
 @Controller
@@ -53,14 +50,24 @@ public class TestwebhookApplication {
     void webHookEndPointPost(Map<String, Object> subscribeObject){
 
         StringBuffer s = new StringBuffer("");
-        s.append("field : ").append((String)subscribeObject.get(0)).append(";");
+
+        s.append("{ ");
+
+        Set<String> strings = subscribeObject.keySet();
+        strings.forEach(keys -> {
+            s.append(keys).append(" : ").append(subscribeObject.get(keys)).append("; ");
+        });
+
+        s.append(" }");
+
+        /*s.append("field : ").append((String)subscribeObject.get(0)).append(";");
         s.append("value : {");
 
         ((Map<String, String>)subscribeObject.get(1)).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
         });
 
-        s.append("}");
+        s.append("}");*/
 
         mapList.add(s.toString());
 
