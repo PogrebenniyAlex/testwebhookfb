@@ -53,11 +53,11 @@ public class TestwebhookApplication {
     void webHookEndPointPost(Map<String, Object> subscribeObject){
 
         StringBuffer s = new StringBuffer("");
-        s.append("field : ").append(subscribeObject.get("field")).append(";\n");
+        s.append("field : ").append((String)subscribeObject.get("field")).append(";");
         s.append("value : {\n");
 
         subscribeObject.forEach((s1, o) -> {
-            s.append(s1).append(" : ").append(o).append("; \n");
+            s.append(s1).append(" : ").append((String)o).append(";");
         });
 
         s.append("}");
