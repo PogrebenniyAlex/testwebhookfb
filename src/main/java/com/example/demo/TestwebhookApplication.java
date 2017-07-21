@@ -3,10 +3,8 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -51,25 +49,40 @@ public class TestwebhookApplication {
 
         StringBuffer s = new StringBuffer("");
 
-        s.append("{ ");
+        /*s.append("{ ");
 
         Set<String> strings = subscribeObject.keySet();
         strings.forEach(keys -> {
             s.append(keys).append(" : ").append(subscribeObject.get(keys)).append("; ");
         });
 
-        s.append(" }");
+        s.append(" }");*/
 
-        /*s.append("field : ").append((String)subscribeObject.get(0)).append(";");
+        s.append("field : ").append((String)subscribeObject.get("")).append(";");
         s.append("value : {");
 
         ((Map<String, String>)subscribeObject.get(1)).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
         });
 
-        s.append("}");*/
+        s.append("}");
 
         mapList.add(s.toString());
+
+    }
+
+    @RequestMapping(value = "/sub/{id}", method = RequestMethod.GET)
+    void sub(@PathVariable("id") String id){
+
+        String url = "http://graph.facebook.com/v2.8/" + id + "/subscriptions?object=page&" +
+                "callback_url=https://testwebhookfb.herokuapp.com/webhook&" +
+                "&fields=feed" +
+                "&verify_token=MyVerifyString";
+
+        RestTemplate restTemplate = new RestTemplate();
+        Verify verify = restTemplate.postForObject(url, null, Verify.class);
+
+        mapList.add(verify.toString());
 
     }
 
@@ -77,4 +90,23 @@ public class TestwebhookApplication {
 		SpringApplication.run(TestwebhookApplication.class, args);
 	}
 
+
+	private static class Verify{
+        private String success;
+
+        public String getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(String success) {
+            this.success = success;
+        }
+
+        @Override
+        public String toString() {
+            return "Verify{" +
+                    "success='" + success + '\'' +
+                    '}';
+        }
+    }
 }
