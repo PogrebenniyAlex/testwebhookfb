@@ -45,7 +45,7 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
-    void webHookEndPointPost(Likes  likes){
+    void webHookEndPointPost(Map<String, Object> subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -58,23 +58,24 @@ public class TestwebhookApplication {
 
         s.append(" }");*/
 
-        /*s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
+        s.append("field : ").append((String)subscribeObject.get("field")).append("; ");
         s.append("value : {");
 
-        *//*((Map<String, String>)subscribeObject.get("field")).forEach((s1, o) -> {
+        /*((Map<String, String>)subscribeObject.get("field")).forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });*//*
+        });*/
 
-        s.append("}");*/
+        s.append("}");
 
-        mapList.add(likes.toString());
+        mapList.add(s.toString());
 
     }
 
     @RequestMapping(value = "/sub/{id}", method = RequestMethod.GET)
-    void sub(@PathVariable("id") String id){
+    @ResponseBody
+    String sub(@PathVariable("id") String id){
 
-        String url = "http://graph.facebook.com/v2.8/" + id + "/subscriptions?object=page&" +
+        String url = "https://graph.facebook.com/v2.8/" + id + "/subscriptions?object=page&" +
                 "callback_url=https://testwebhookfb.herokuapp.com/webhook&" +
                 "&fields=feed" +
                 "&verify_token=MyVerifyString";
@@ -84,6 +85,7 @@ public class TestwebhookApplication {
 
         mapList.add(verify.toString());
 
+        return verify.toString();
     }
 
 	public static void main(String[] args) {
@@ -113,13 +115,6 @@ public class TestwebhookApplication {
     private static class Likes{
         private String field;
 
-        public String getField() {
-            return field;
-        }
-
-        public void setField(String field) {
-            this.field = field;
-        }
 
         @Override
         public String toString() {
