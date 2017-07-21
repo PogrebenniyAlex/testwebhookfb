@@ -80,6 +80,7 @@ public class TestwebhookApplication {
                 "&fields=feed" +
                 "&verify_token=MyVerifyString";
 
+        mapList.add(url);
         RestTemplate restTemplate = new RestTemplate();
         Verify verify = restTemplate.postForObject(url, null, Verify.class);
 
