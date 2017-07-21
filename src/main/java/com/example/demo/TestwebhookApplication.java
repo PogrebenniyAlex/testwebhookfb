@@ -82,11 +82,17 @@ public class TestwebhookApplication {
 
         mapList.add(url);
         RestTemplate restTemplate = new RestTemplate();
-        Verify verify = restTemplate.postForObject(url, null, Verify.class);
-
-        mapList.add(verify.toString());
+        Verify verify = null;
+        try{
+            verify = restTemplate.postForObject(url, null, Verify.class);
+            mapList.add(verify.toString());
+        }catch (Exception e){
+            mapList.add(e.getMessage());
+        }
 
         return verify.toString();
+
+
     }
 
 	public static void main(String[] args) {
