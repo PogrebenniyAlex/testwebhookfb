@@ -45,7 +45,8 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST)
-    void webHookEndPointPost(Map<String, Object> subscribeObject){
+    @ResponseBody
+    String webHookEndPointPost(Map<String, Object> subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -69,6 +70,7 @@ public class TestwebhookApplication {
 
         mapList.add(s.toString());
 
+        return s.toString();
     }
 
     @RequestMapping(value = "/sub/{id}", method = RequestMethod.GET)
