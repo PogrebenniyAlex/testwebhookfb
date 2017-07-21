@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -63,12 +62,14 @@ public class TestwebhookApplication {
 
         s.append(" }");*/
 
-        s.append("field : ").append((String)subscribeObject.getObject()).append("; ");
-        s.append("value : {");
+        s.append("field : ").append(subscribeObject.getObject()).append("; ");
+        s.append("value : { ");
 
-        subscribeObject.getEntry().forEach((s1, o) -> {
+        /*subscribeObject.getEntry().forEach((s1, o) -> {
             s.append(s1).append(" : ").append(o).append(";");
-        });
+        });*/
+
+        subscribeObject.getEntry().forEach(s1 -> s.append(s1).append("; "));
 
         s.append("}");
 
@@ -142,7 +143,7 @@ public class TestwebhookApplication {
     private static class LikesObj{
         private String object;
 
-        private Map<String, String> entry;
+        private List<Object> entry;
 
         public LikesObj() {
         }
@@ -155,11 +156,11 @@ public class TestwebhookApplication {
             this.object = object;
         }
 
-        public Map<String, String> getEntry() {
+        public List<Object> getEntry() {
             return entry;
         }
 
-        public void setEntry(Map<String, String> entry) {
+        public void setEntry(List<Object> entry) {
             this.entry = entry;
         }
 
