@@ -76,7 +76,7 @@ public class TestwebhookApplication {
     String sub(@PathVariable("id") String id){
 
         String url = "https://graph.facebook.com/v2.8/" + id + "/subscriptions?object=page&" +
-                "callback_url=https://testwebhookfb.herokuapp.com/webhook&" +
+                "callback_url=https://testwebhookfb.herokuapp.com/webhook" +
                 "&fields=feed" +
                 "&verify_token=MyVerifyString";
 
