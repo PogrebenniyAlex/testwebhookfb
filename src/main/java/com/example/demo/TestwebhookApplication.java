@@ -63,7 +63,7 @@ public class TestwebhookApplication {
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @SendTo("/topic/greetings")
-    @MessageMapping("/webhook")
+    @MessageMapping("/hello")
     Greeting webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
