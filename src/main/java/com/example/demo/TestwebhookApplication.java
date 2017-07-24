@@ -1,11 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.entity.Greeting;
+import com.example.demo.entity.HelloMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,9 @@ import java.util.List;
 @SpringBootApplication
 @Controller
 public class TestwebhookApplication {
+
+    @Autowired
+    private GreetingController greetingController;
 
 	private static List<String> mapList = new ArrayList<>();
 
@@ -62,8 +65,6 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @SendTo("/topic/greetings")
-    @MessageMapping("/hello")
     Greeting webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
@@ -76,6 +77,12 @@ public class TestwebhookApplication {
         s.append("}");
 
         mapList.add(s.toString());
+
+        try {
+            greetingController.greeting(new HelloMessage(s.toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return new Greeting(s.toString());
     }

@@ -11,4 +11,10 @@ public class HelloMessage {
         return name;
     }
 
+    public HelloMessage() {
+    }
+
+    public HelloMessage(String name) {
+        this.name = name;
+    }
 }
