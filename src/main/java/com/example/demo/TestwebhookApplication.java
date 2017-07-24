@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.entity.Greeting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,8 +61,8 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    String webHookEndPointPost(@RequestBody LikesObj subscribeObject){
+    @SendTo("/topic/greetings")
+    Greeting webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -74,7 +76,7 @@ public class TestwebhookApplication {
 
         mapList.add(s.toString());
 
-        return s.toString();
+        return new Greeting(s.toString());
     }
 
 	public static void main(String[] args) {
