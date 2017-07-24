@@ -22,7 +22,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/hello").withSockJS();
+        registry.addEndpoint("/hello", "/webhook").withSockJS();
     }
 
 }

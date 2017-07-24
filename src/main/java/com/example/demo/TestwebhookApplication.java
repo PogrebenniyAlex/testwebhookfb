@@ -4,6 +4,7 @@ import com.example.demo.entity.Greeting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,7 @@ public class TestwebhookApplication {
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @SendTo("/topic/greetings")
+    @MessageMapping("/webhook")
     Greeting webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
@@ -72,7 +74,6 @@ public class TestwebhookApplication {
         subscribeObject.getEntry().forEach(s1 -> s.append(s1).append("; "));
 
         s.append("}");
-
 
         mapList.add(s.toString());
 
