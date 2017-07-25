@@ -28,7 +28,7 @@
 <script type="text/javascript">
 
 
-        var websocket = new WebSocket("ws://localhost:8080/client");
+        var websocket = new WebSocket("wss://testwebhookfb.herokuapp.com/client");
         websocket.onopen = function (evt) {
             console.log("CONNECTED");
         };
