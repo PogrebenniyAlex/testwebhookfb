@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.entity.Greeting;
-import com.example.demo.entity.HelloMessage;
+import com.example.demo.webSocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ import java.util.List;
 public class TestwebhookApplication {
 
     @Autowired
-    private GreetingController greetingController;
+    private WebSocketHandler webSocketHandler;
 
 	private static List<String> mapList = new ArrayList<>();
 
@@ -78,11 +78,7 @@ public class TestwebhookApplication {
 
         mapList.add(s.toString());
 
-        try {
-            greetingController.greeting(new HelloMessage(s.toString()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        webSocketHandler.sendToClient(s.toString());
 
         return new Greeting(s.toString());
     }
