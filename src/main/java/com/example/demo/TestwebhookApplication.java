@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.entity.Greeting;
 import com.example.demo.webSocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -65,7 +64,8 @@ public class TestwebhookApplication {
 	}
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    Greeting webHookEndPointPost(@RequestBody LikesObj subscribeObject){
+    @ResponseBody
+    String webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -80,7 +80,7 @@ public class TestwebhookApplication {
 
         webSocketHandler.sendToClient(s.toString());
 
-        return new Greeting(s.toString());
+        return s.toString();
     }
 
 	public static void main(String[] args) {
