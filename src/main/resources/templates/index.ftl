@@ -20,8 +20,8 @@
 </div>
 
 <style>
-    .echo>span{
-        border:1px solid #000;
+    .echo>h4{
+        font-weight: 400;
     }
 </style>
 <div class="echo"></div>
@@ -34,7 +34,7 @@
         };
         websocket.onmessage = function (evt) {
             console.log(evt.data);
-            $(".echo").append("<span>"+evt.data+"</span>");
+            $(".echo").append("<h4>"+evt.data+"</h4>");
         };
 
         function webSocketSend(text) {
