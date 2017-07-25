@@ -65,7 +65,7 @@ public class TestwebhookApplication {
 
     @RequestMapping(value = "/webhook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    String webHookEndPointPost(@RequestBody LikesObj subscribeObject){
+    LikesObj webHookEndPointPost(@RequestBody LikesObj subscribeObject){
 
         StringBuffer s = new StringBuffer("");
 
@@ -80,7 +80,7 @@ public class TestwebhookApplication {
 
         webSocketHandler.sendToClient(s.toString());
 
-        return s.toString();
+        return subscribeObject;
     }
 
 	public static void main(String[] args) {
